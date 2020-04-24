@@ -2,4 +2,4 @@
 
 ____________
 
-Repositório que contem o trabalho prático da unidade curricular de SPLN.
+Repositório que contém o trabalho prático da unidade curricular de SPLN.
