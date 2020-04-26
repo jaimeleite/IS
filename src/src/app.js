@@ -3,12 +3,6 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 
-var mongoose = require('mongoose')
-
-mongoose.connect('mongodb://127.0.0.1:27017/is', {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(()=> console.log('Mongo ready: ' + mongoose.connection.readyState))
-    .catch((erro)=> console.log('Mongo: erro na conexão: ' + erro))
-
 var indexRouter = require('./routes/index');
 
 var app = express();
