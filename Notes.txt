@@ -1,0 +1,21 @@
+ORCID:
+	---> Biography: https://pub.orcid.org/v3.0/0000-0003-4121-6169/person
+	---> Works, Scopus-ids: https://pub.orcid.org/v3.0/0000-0003-4121-6169/works
+		---> Retira-se do external-id-value: 
+						2-s2.0-(scopus-id)
+		---> O prof nos exemplos retira do url.value
+SCOPUS:
+	---> Com Scopus id:					    (scopus-id)
+		
+		https://api.elsevier.com/content/abstract/scopus_id/38349047757?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e
+		
+		abstracts-retrieval-response ->
+			
+			---> Autor: coredata -> dc:creator -> author -> ce:indexed-name (outra forma no exemplo do prof, existe?)
+			---> Titulo: coredata -> dc:title
+			---> Journal: coredata -> prism:publicationName
+			---> Volume: coredata -> prism:volume
+			---> Issn: coredata -> prism:issn
+			---> Date: coredata -> prism:coverDate
+			---> Doi: coredata -> prism:doi ?	(existe ?)
+			---> Cites: coredata -> citedby-count
