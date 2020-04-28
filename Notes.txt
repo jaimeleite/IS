@@ -4,7 +4,7 @@ ORCID:
 		---> Retira-se do external-id-value: 
 						2-s2.0-(scopus-id)
 		---> O prof nos exemplos retira do url.value
-SCOPUS:
+API ELSEVIER:
 	---> Com Scopus id:					    (scopus-id)
 		
 		https://api.elsevier.com/content/abstract/scopus_id/38349047757?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e
@@ -15,7 +15,21 @@ SCOPUS:
 			---> Titulo: coredata -> dc:title
 			---> Journal: coredata -> prism:publicationName
 			---> Volume: coredata -> prism:volume
-			---> Issn: coredata -> prism:issn
+			---> Issn: coredata -> prism:issn  (dois valores separados por espaco ?)
 			---> Date: coredata -> prism:coverDate
 			---> Doi: coredata -> prism:doi ?	(existe ?)
 			---> Cites: coredata -> citedby-count
+
+	---> Usar o issn: 					    (issn)
+								     
+		https://api.elsevier.com/content/serial/title/issn/03029743?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e
+		
+		serial-metadata-response -> 
+			
+			---> SJR: entry -> SJRList -> SJR -> @year, $
+			---> citeScore: entry -> citeScoreYearInfoList -> 	citeScoreCurrentMetric, 
+										citeScoreCurrentMetricYear, 
+										citeScoreTracker,
+										citeScoreTrackerYear
+
+										
