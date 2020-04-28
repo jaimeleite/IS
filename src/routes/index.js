@@ -33,7 +33,7 @@ router.get('/:idUtilizador', async function(req, res, next) {
 
     //agrupar informação do utilizador
     var utilizador = {
-      orid: idUtilizador,
+      _id: idUtilizador,
       eids: eids
     }
     

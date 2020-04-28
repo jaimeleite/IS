@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 var utilizadorSchema = new mongoose.Schema({
-    orid: String,
+    _id: String,
     eids: [Number]
 })
 
