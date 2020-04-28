@@ -25,7 +25,8 @@ API ELSEVIER:
 			---> Date: coredata -> prism:coverDate
 			---> Doi: coredata -> prism:doi ?	(existe ?)
 			---> Cites: coredata -> citedby-count
-			---> Type: coredata -> subtypeDescription (?)
+			---> Type: coredata -> subtypeDescription (ou prism:aggregationType?)
+			---> Location: ?
 
 	---> Usar o issn: 					    (issn)
 								     
