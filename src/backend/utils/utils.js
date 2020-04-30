@@ -3,7 +3,7 @@ var Users = require('../controllers/users')
 var Connbd = require('../connBD/connBD')
 const Utils = module.exports
 
-function getEids(data){
+getEids = (data) => {
   //save urls for each work
   urls = []
   data['group'].forEach(r => {
@@ -36,12 +36,51 @@ Utils.userInfo = async (idUser) => {
     axios.get('https://pub.orcid.org/v3.0/' + idUser + '/works', { headers: {'Accept': 'application/json'}})
   ])
 
+  publicacoes = []
+  eids = getEids(res2.data)
+
+  const getPubs = await eids.map(async eid => {
+    await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eid + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
+      .then(response => {
+        pub = response.data
+        author = pub['abstracts-retrieval-response']['coredata']['dc:creator']['author']['ce:indexed-name']
+        title = pub['abstracts-retrieval-response']['coredata']['dc:title']
+        journal = pub['abstracts-retrieval-response']['coredata']['prism:publicationName']
+        volume = pub['abstracts-retrieval-response']['coredata']['prism:volume']
+        issn = pub['abstracts-retrieval-response']['coredata']['prism:issn']
+        date = pub['abstracts-retrieval-response']['coredata']['prism:coverDate']
+        doi = pub['abstracts-retrieval-response']['coredata']['prism:doi']
+        cites = pub['abstracts-retrieval-response']['coredata']['citedby-count']
+        type = pub['abstracts-retrieval-response']['coredata']['subtypeDescription']
+        
+        pubInfo = {
+          author: author ? author : '',
+          title: title ? title : '',
+          journal: journal ? journal : '',
+          volume: volume ? volume : '',
+          issn: issn ? issn : '',
+          date: date ? date : '',
+          doi: doi ? doi : '',
+          cites: cites ? cites : '',
+          type: type ? type : ''
+        }
+
+        publicacoes.push(pubInfo)
+
+      })
+      .catch(error => {
+        console.log("Publicação", eid, "não encontrada")
+      })
+  })
+
+  await Promise.all(getPubs)
+
   user._id = idUser
   user.name = res1.data['name']['credit-name']['value']
   user.biography = res1.data['biography']['content']
-  user.eids = getEids(res2.data)
+  user.publicacoes = publicacoes
 
-  //insert userInfo on DB
+  //insert userInfo on BD
   await Users.insert(user)
 
   Connbd.closeConnection()
