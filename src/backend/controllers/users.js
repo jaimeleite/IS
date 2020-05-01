@@ -8,9 +8,26 @@ Users.insert = u => {
 
 Users.getIeds = u => {
     try {
-        return User.find({_id:u}, {eids:1}).exec()
+        return User.find({_id:u}, {eids:1, _id:0})
     }
     catch (err){
         return []
     }
+}
+Users.getUser = u => {
+    return User.find({_id:u})
+}
+
+Users.updateEIDS = (u, eids) => {
+    return User.updateOne(
+        { _id: u },
+        { $push: { eids: { $each:eids } } }
+     )
+}
+
+Users.updatePUBS = (u, pubs) => {
+    return User.updateOne(
+        { _id: u },
+        { $push: { publicacoes: { $each:pubs } } }
+     )
 }
