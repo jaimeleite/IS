@@ -29,29 +29,30 @@ getEids = (data) => {
 //update or insert new user information
 Utils.userInfo = async (idUser) => {
   Connbd.establishConnection('is')
-  user = {}
+  var user = {}
   
+  var exists = Users.getUser(idUser) ? 1 : 0
+
+  // Para caso de Update /person nao precis ser feito WIP
   const [res1, res2] = await axios.all([
     axios.get('https://pub.orcid.org/v3.0/' + idUser + '/person', { headers: {'Accept': 'application/json'}}),
     axios.get('https://pub.orcid.org/v3.0/' + idUser + '/works', { headers: {'Accept': 'application/json'}})
   ])
 
   var db_eids = await Users.getIeds(idUser)
-  console.log(db_eids.length)
+  db_eids = db_eids[0].eids
+ 
   var curr_eids = await getEids(res2.data)
-  console.log(curr_eids)
-  var eids
+  
+  var eids = []
   
   if (db_eids.length === 0) {
     eids = curr_eids
   }
   else {
-    curr_eids.forEach((a) => db_eids.forEach((b) => {
-      if (a !== b) 
-        eids.push(a)
-    }))
+    eids = curr_eids.filter(x => !db_eids.includes(x))
   }
-  
+
   publicacoes = []
   links = []
   
@@ -93,17 +94,30 @@ Utils.userInfo = async (idUser) => {
 
   console.log("Acabei de procurar as publicações")
 
-  user._id = idUser
-  user.name = res1.data['name']['credit-name']['value']
-  user.biography = res1.data['biography']['content']
-  user.eids = eids
-  user.publicacoes = publicacoes
+  if (exists === 0) {
+    credit_name = res1.data['name']['credit-name']
+    name = credit_name ? credit_name['value'] : ''
+    biography_content = res1.data['biography']
+    biography = biography_content ? biography_content['content'] : ''
+  
+    user._id = idUser
+    user.name = name ? name : ''
+    user.biography = biography ? biography : ''
+    
+    user.eids = eids
+    user.publicacoes = publicacoes
 
-  //insert userInfo on BD
-  await Users.insert(user)
-
-  console.log("Utilizador inserido na base de dados")
-
+    //insert userInfo on BD
+    await Users.insert(user)
+    console.log("Utilizador inserido na base de dados")
+  }
+  else {
+    user._id = idUser
+    await Users.updateEIDS(user, eids)
+    await Users.updatePUBS(user, publicacoes)
+    console.log("Utilizador atualizado na base de dados")
+  }
+  
   Connbd.closeConnection()
 
   return
