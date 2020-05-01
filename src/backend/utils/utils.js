@@ -26,6 +26,71 @@ getEids = (data) => {
   return eids
 }
 
+getAuthors = async (eid) => {
+  const authors = await axios.get('http://api.elsevier.com/content/abstract/scopus_id/' + eid + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e&field=authors')
+    .then(response => {
+      auts = []
+      aut = response.data['abstracts-retrieval-response']['authors']['author']
+      aut.forEach(author => {
+        indexed_name = author['ce:indexed-name']
+        if(indexed_name){
+          auts.push(indexed_name)
+        }
+      })
+      return auts
+    })
+    .catch(err => {
+      console.log("Erro ao encontrar os autores da publicação", eid, "=> Erro:", err.response.statusText)
+      return []
+    })
+
+    return authors
+}
+
+formPubs = async (eids) => {
+  publicacoes = []
+  for (let index = 0; index < eids.length; index++){
+    pubInfo = {}
+    await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
+      .then(response => { 
+        pub = response.data
+        title = pub['abstracts-retrieval-response']['coredata']['dc:title']
+        journal = pub['abstracts-retrieval-response']['coredata']['prism:publicationName']
+        volume = pub['abstracts-retrieval-response']['coredata']['prism:volume']
+        issn = pub['abstracts-retrieval-response']['coredata']['prism:issn']
+        date = pub['abstracts-retrieval-response']['coredata']['prism:coverDate']
+        doi = pub['abstracts-retrieval-response']['coredata']['prism:doi']
+        cites = pub['abstracts-retrieval-response']['coredata']['citedby-count']
+        type = pub['abstracts-retrieval-response']['coredata']['subtypeDescription']
+        
+        pubInfo = {
+          title: title ? title : '',
+          journal: journal ? journal : '',
+          volume: volume ? volume : '',
+          issn: issn ? issn : '',
+          date: date ? date : '',
+          doi: doi ? doi : '',
+          cites: cites ? cites : '',
+          type: type ? type : ''
+        }
+
+        publicacoes.push(pubInfo)
+
+        console.log("Encontrei a publicação", eids[index])
+    })
+    .catch(err => {
+      console.log("Publicação", eids[index], "=> Erro:", err.response.statusText)
+    })
+
+    //get authors
+    if(Object.keys(pubInfo).length > 0){
+      publicacoes[index].authors = await getAuthors(eids[index])
+    }
+  }
+
+  return publicacoes
+}
+
 //update or insert new user information
 Utils.userInfo = async (idUser) => {
   Connbd.establishConnection('is')
@@ -53,62 +118,8 @@ Utils.userInfo = async (idUser) => {
     eids = curr_eids.filter(x => !db_eids.includes(x))
   }
 
-  publicacoes = []
+  publicacoes = await formPubs(eids)
   links = []
-  
-
-  for (let index = 0; index < eids.length; index++){
-      pubInfo = {}
-      await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
-        .then(response => { 
-        pub = response.data
-        title = pub['abstracts-retrieval-response']['coredata']['dc:title']
-        journal = pub['abstracts-retrieval-response']['coredata']['prism:publicationName']
-        volume = pub['abstracts-retrieval-response']['coredata']['prism:volume']
-        issn = pub['abstracts-retrieval-response']['coredata']['prism:issn']
-        date = pub['abstracts-retrieval-response']['coredata']['prism:coverDate']
-        doi = pub['abstracts-retrieval-response']['coredata']['prism:doi']
-        cites = pub['abstracts-retrieval-response']['coredata']['citedby-count']
-        type = pub['abstracts-retrieval-response']['coredata']['subtypeDescription']
-        
-        pubInfo = {
-          title: title ? title : '',
-          journal: journal ? journal : '',
-          volume: volume ? volume : '',
-          issn: issn ? issn : '',
-          date: date ? date : '',
-          doi: doi ? doi : '',
-          cites: cites ? cites : '',
-          type: type ? type : ''
-        }
-
-        publicacoes.push(pubInfo)
-
-        console.log("Encontrei a publicação", eids[index])
-      })
-      .catch(err => {
-        console.log("Publicação", eids[index], "=> Erro:", err.response.statusText)
-      })
-
-      //get authors
-      if(Object.keys(pubInfo).length > 0){
-        await axios.get('http://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e&field=authors')
-          .then(response => {
-            authors = []
-            aut = response.data['abstracts-retrieval-response']['authors']['author']
-            aut.forEach(author => {
-              indexed_name = author['ce:indexed-name']
-              if(indexed_name){
-                authors.push(indexed_name)
-              }
-            })
-            publicacoes[index].authors = authors
-          })
-          .catch(err => {
-            console.log("Erro ao encontrar os autores da publicação", eids[index], "=> Erro:", err.response.statusText)
-          })
-      }
-  }
 
   console.log("Acabei de procurar as publicações")
 
