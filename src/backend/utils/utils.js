@@ -37,11 +37,12 @@ Utils.userInfo = async (idUser) => {
   ])
 
   publicacoes = []
+  links = []
   eids = getEids(res2.data)
 
-  const getPubs = await eids.map(async eid => {
-    await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eid + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
-      .then(response => {
+  for (let index = 0; index < eids.length; index++){
+      await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
+        .then(response => { 
         pub = response.data
         author = pub['abstracts-retrieval-response']['coredata']['dc:creator']['author']['ce:indexed-name']
         title = pub['abstracts-retrieval-response']['coredata']['dc:title']
@@ -67,13 +68,14 @@ Utils.userInfo = async (idUser) => {
 
         publicacoes.push(pubInfo)
 
+        console.log("Encontrei a publicação", eids[index])
       })
-      .catch(error => {
-        console.log("Publicação", eid, "não encontrada")
+      .catch(err => {
+        console.log("Publicação", eids[index], "=> Erro:", err.response.statusText)
       })
-  })
+  }
 
-  await Promise.all(getPubs)
+  console.log("Acabei de procurar as publicações")
 
   user._id = idUser
   user.name = res1.data['name']['credit-name']['value']
@@ -82,6 +84,8 @@ Utils.userInfo = async (idUser) => {
 
   //insert userInfo on BD
   await Users.insert(user)
+
+  console.log("Utilizador inserido na base de dados")
 
   Connbd.closeConnection()
 
