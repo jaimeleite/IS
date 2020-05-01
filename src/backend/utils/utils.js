@@ -31,7 +31,7 @@ Utils.userInfo = async (idUser) => {
   Connbd.establishConnection('is')
   var user = {}
   
-  var exists = Users.getUser(idUser) ? 1 : 0
+  var exists = ((await Users.getUser(idUser)).length > 0) ? 1 : 0
 
   // Para caso de Update /person nao precis ser feito WIP
   const [res1, res2] = await axios.all([
@@ -40,7 +40,7 @@ Utils.userInfo = async (idUser) => {
   ])
 
   var db_eids = await Users.getIeds(idUser)
-  db_eids = db_eids[0].eids
+  db_eids = (db_eids.length) > 0 ? db_eids[0].eids : []
  
   var curr_eids = await getEids(res2.data)
   
@@ -58,6 +58,7 @@ Utils.userInfo = async (idUser) => {
   
 
   for (let index = 0; index < eids.length; index++){
+      pubInfo = {}
       await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
         .then(response => { 
         pub = response.data
@@ -90,6 +91,25 @@ Utils.userInfo = async (idUser) => {
       .catch(err => {
         console.log("Publicação", eids[index], "=> Erro:", err.response.statusText)
       })
+
+      //get authors
+      if(Object.keys(pubInfo).length > 0){
+        await axios.get('http://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e&field=authors')
+          .then(response => {
+            authors = []
+            aut = response.data['abstracts-retrieval-response']['authors']['author']
+            aut.forEach(author => {
+              indexed_name = author['ce:indexed-name']
+              if(indexed_name){
+                authors.push(indexed_name)
+              }
+            })
+            publicacoes[index].authors = authors
+          })
+          .catch(err => {
+            console.log("Erro ao encontrar os autores da publicação", eids[index], "=> Erro:", err.response.statusText)
+          })
+      }
   }
 
   console.log("Acabei de procurar as publicações")

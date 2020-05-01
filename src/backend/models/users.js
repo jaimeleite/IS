@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 var pubSchema = new mongoose.Schema({
-    author: String,
+    authors: [String],
     title: String,
     journal: String,
     volume: String,
