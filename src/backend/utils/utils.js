@@ -62,7 +62,6 @@ Utils.userInfo = async (idUser) => {
       await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
         .then(response => { 
         pub = response.data
-        author = pub['abstracts-retrieval-response']['coredata']['dc:creator']['author']['ce:indexed-name']
         title = pub['abstracts-retrieval-response']['coredata']['dc:title']
         journal = pub['abstracts-retrieval-response']['coredata']['prism:publicationName']
         volume = pub['abstracts-retrieval-response']['coredata']['prism:volume']
@@ -73,7 +72,6 @@ Utils.userInfo = async (idUser) => {
         type = pub['abstracts-retrieval-response']['coredata']['subtypeDescription']
         
         pubInfo = {
-          author: author ? author : '',
           title: title ? title : '',
           journal: journal ? journal : '',
           volume: volume ? volume : '',
