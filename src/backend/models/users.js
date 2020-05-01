@@ -19,6 +19,7 @@ var userSchema = new mongoose.Schema({
     _id: String,
     name: String,
     biography: String,
+    eids: [String],
     publicacoes: [pubSchema]
 })
 

@@ -36,9 +36,25 @@ Utils.userInfo = async (idUser) => {
     axios.get('https://pub.orcid.org/v3.0/' + idUser + '/works', { headers: {'Accept': 'application/json'}})
   ])
 
+  var db_eids = await Users.getIeds(idUser)
+  console.log(db_eids.length)
+  var curr_eids = await getEids(res2.data)
+  console.log(curr_eids)
+  var eids
+  
+  if (db_eids.length === 0) {
+    eids = curr_eids
+  }
+  else {
+    curr_eids.forEach((a) => db_eids.forEach((b) => {
+      if (a !== b) 
+        eids.push(a)
+    }))
+  }
+  
   publicacoes = []
   links = []
-  eids = getEids(res2.data)
+  
 
   for (let index = 0; index < eids.length; index++){
       await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
@@ -80,6 +96,7 @@ Utils.userInfo = async (idUser) => {
   user._id = idUser
   user.name = res1.data['name']['credit-name']['value']
   user.biography = res1.data['biography']['content']
+  user.eids = eids
   user.publicacoes = publicacoes
 
   //insert userInfo on BD
