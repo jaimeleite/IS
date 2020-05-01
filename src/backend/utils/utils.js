@@ -77,9 +77,14 @@ Utils.userInfo = async (idUser) => {
 
   console.log("Acabei de procurar as publicações")
 
+  credit_name = res1.data['name']['credit-name']
+  name = credit_name ? credit_name['value'] : ''
+  biography_content = res1.data['biography']
+  biography = biography_content ? biography_content['content'] : ''
+
   user._id = idUser
-  user.name = res1.data['name']['credit-name']['value']
-  user.biography = res1.data['biography']['content']
+  user.name = name ? name : ''
+  user.biography = biography ? biography : ''
   user.publicacoes = publicacoes
 
   //insert userInfo on BD
