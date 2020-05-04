@@ -40,7 +40,7 @@ getAuthors = async (eid) => {
       return auts
     })
     .catch(err => {
-      console.log("Erro ao encontrar os autores da publicação", eid, "=> Erro:", err.response.statusText)
+      console.log("Erro ao encontrar os autores da publicação", eid, "=> Erro:", err.response)
       return []
     })
 
@@ -83,9 +83,11 @@ formPubs = async (eids) => {
     })
 
     //get authors
+    /*
     if(Object.keys(pubInfo).length > 0){
       publicacoes[index].authors = await getAuthors(eids[index])
     }
+    */
   }
 
   return publicacoes

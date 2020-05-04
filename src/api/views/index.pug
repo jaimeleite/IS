@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1= "Lista de Utilizadores"
+  p #{title}
+  w3.w3-container
+    ul.w3-ul.w3-card-4
+      each user in lista
+        li
+          img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
+          p.w3-large= user.name
+          a(href="https://orcid.org/" + user.id) 
+            =user.id
+          
+      
+
+  
+  

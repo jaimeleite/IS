@@ -1,8 +1,8 @@
 var User = require('../models/users')
 const Users = module.exports
 
-Users.getUser = userId => {
+Users.getUser = () => {
     return User
-        .findOne({_id: userId})
+        .find({},{id:1,name:1})
         .exec()
 }
