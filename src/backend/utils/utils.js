@@ -64,6 +64,7 @@ formPubs = async (eids) => {
         type = pub['abstracts-retrieval-response']['coredata']['subtypeDescription']
         
         pubInfo = {
+          _id: eids[index],
           title: title ? title : '',
           journal: journal ? journal : '',
           volume: volume ? volume : '',

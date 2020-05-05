@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 var pubSchema = new mongoose.Schema({
+    _id: String,
     authors: [String],
     title: String,
     journal: String,

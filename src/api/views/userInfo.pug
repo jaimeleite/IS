@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    .w3-row
+        .w3-col.s4
+            p 
+        .w3-col.s4.w3-center
+            .w3-card.w3-light-grey
+                if user.name
+                    p.w3-large= user.name
+                else
+                    p.w3-large Sem nome registado
+                p.w3-large= user._id
+                h2 Biografia
+                if user.biography
+                    p.w3-large= user.biography
+                else
+                    p.w3-large Sem biografia registada
+                h2 Publicações
+                if user.publicacoes.length > 0
+                    each pub in user.publicacoes
+                        p
+                            a(href="/" + user.id + "?idPub=" + pub._id)= pub.title
+                else
+                    p.w3-large Sem publicações registadas
+            a(href="/") Voltar atrás

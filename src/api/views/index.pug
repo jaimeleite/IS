@@ -16,7 +16,8 @@ block content
               p.w3-large= user.name
             else 
               p.w3-large= "Sem nome registado!"
-            a(href="https://orcid.org/" + user.id) 
+            a(href="/" + user.id)= user.id
+            //a(href="https://orcid.org/" + user.id) 
               =user.id
             br
             br

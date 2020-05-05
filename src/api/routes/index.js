@@ -5,11 +5,25 @@ var fs = require('fs');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-    idUser = req.params.idUser
+  Users.getUsers()
+    .then(result => res.render('index', {lista: result}))
+    .catch(e => res.status(500).jsonp(e))
+});
 
-    Users.getUser()
-      .then(dados => res.render('index', {lista: dados}))
+router.get('/:idUser', async function(req, res, next) {
+  idUser = req.params.idUser
+  
+  if (req.query.idPub) {
+    Users.getPub(idUser, req.query.idPub)
+      .then(result => res.render('pubInfo', {idUser: idUser, pub: result.publicacoes[0]}))
       .catch(e => res.status(500).jsonp(e))
+  }
+  
+  else {
+    Users.getUser(idUser)
+      .then(result => res.render('userInfo', {user: result}))
+      .catch(e => res.status(500).jsonp(e)) 
+  }
 });
 
 router.get('/img_avatar.png', function(req, res, next) {
