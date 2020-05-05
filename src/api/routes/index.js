@@ -21,4 +21,13 @@ router.get('/img_avatar.png', function(req, res, next) {
   })
 });
 
+router.get('/back2.jpg', function(req, res, next) {
+  fs.readFile('public/images/back2.jpg', (err,img)=>{
+    if (err)
+      console.log("erro->"+err)
+    res.set('Content-Type','image/png')
+    res.end(img);
+  })
+});
+
 module.exports = router;
