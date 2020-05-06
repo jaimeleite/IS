@@ -2,54 +2,76 @@ extends layout
 
 block content
     .w3-row
-        .w3-col.s4
+        .w3-col.m3
             p 
-        .w3-col.s4.w3-center
-            .w3-card.w3-light-grey
-                h2 Título
-                if pub.title
-                    p.w3-large= pub.title
-                else
-                    p.w3-large Sem título registado
-                h2 Jornal
-                if pub.journal
-                    p.w3-large= pub.journal
-                else
-                    p.w3-large Sem referência registada para um "journal"
-                h2 Volume
-                if pub.volume
-                    p.w3-large= pub.volume
-                else
-                    p.w3-large Sem volume registado
-                h2 Issn
-                if pub.issn
-                    p.w3-large= pub.issn
-                else
-                    p.w3-large Sem referência registada de um ISSN
-                h2 Data
-                if pub.date
-                    p.w3-large= pub.date
-                else
-                    p.w3-large Sem data registada
-                h2 Doi
-                if pub.doi
-                    p.w3-large= pub.doi
-                else
-                    p.w3-large Sem referência registada de um DOI
-                h2 Número de citações
-                if pub.cites
-                    h4= pub.cites
-                else
-                    p.w3-large Sem número de citações registado
-                h2 Tipo
-                if pub.type
-                    h4= pub.type
-                else
-                    p.w3-large Sem tipo registado
-                h2 Autores
-                if pub.authors.length > 0
-                    each author in pub.authors
-                        p.w3-large= author
-                else
-                    p.w3-large Sem autores registados
-            a(href="/" + idUser) Voltar atrás
+        .w3-col.m6.w3-center
+            .w3-card
+                br
+                table.w3-table-all.w3-hoverable.w3-hover-shadow
+                    tr
+                        th Título
+                        if pub.title
+                            td.w3-large= pub.title
+                        else
+                            td.w3-large Sem título registado
+                    tr
+                    tr
+                        th Jornal
+                        if pub.journal
+                            td.w3-large= pub.journal
+                        else
+                            td.w3-large Sem referência registada para um "journal"
+                    tr
+                    tr
+                        th Volume
+                        if pub.volume
+                            td.w3-large= pub.volume
+                        else
+                            td.w3-large Sem volume registado
+                    tr
+                    tr
+                        th ISSN
+                        td
+                            if pub.issn
+                                a(href="/issn/" + pub.issn.split(' ')[0])= pub.issn.split(' ')[0]
+                            else
+                                .w3-large Sem referência registada de um ISSN
+                    tr
+                    tr
+                        th Data
+                        if pub.date
+                            td.w3-large= pub.date
+                        else
+                            td.w3-large Sem data registada
+                    tr
+                    tr
+                        th Doi
+                        if pub.doi
+                            td.w3-large= pub.doi
+                        else
+                            td.w3-large Sem referência registada de um DOI
+                    tr
+                        th Número de Citações
+                        if pub.cites
+                            td.w3-large= pub.cites
+                        else
+                            td.w3-large Sem número de citações registado
+                    tr
+                    tr
+                        th Tipo
+                        if pub.type
+                            td.w3-large= pub.type
+                        else
+                            td.w3-large Sem tipo registado
+                    tr
+                    tr
+                        th Autores
+                        if pub.authors.length > 0
+                            td 
+                                each author in pub.authors
+                                    p= author
+                        else
+                            td.w3-large Sem autores registados
+                    tr 
+                br
+            a.w3-button.w3-white(href="/" + idUser) Voltar atrás

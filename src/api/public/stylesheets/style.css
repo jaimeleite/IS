@@ -235,3 +235,11 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     background-image: url(/back2.jpg);
     background-size: cover;
 }
+
+.bkc{
+    background-color: #1E374B;
+}
+
+.just{
+    text-justify: inter-word;
+}
