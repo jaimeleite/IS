@@ -36,7 +36,39 @@ router.get('/back2.jpg', function(req, res, next) {
 router.get('/issn/:code', function(req,res,next){
   console.log("https://api.elsevier.com/content/serial/title/issn/"+ req.params.code+"?apiKey="+apikey)
   axios.get("https://api.elsevier.com/content/serial/title/issn/"+ req.params.code+"?apiKey="+apikey)
-    .then(dados => res.jsonp(dados.data))
+    .then(dados => {
+      info = dados.data['serial-metadata-response']['entry'][0]
+      
+      title = info['dc:title']
+      publisher = info['dc:publisher']
+      covStartYear = info['coverageStartYear']
+      covEndYear = info['coverageEndYear']
+      sourceId = info['source-id']
+      //--several fiels in sjr--//
+      sjr = info['SJRList']['SJR'][0]
+      sjrYear = sjr['@year']
+      sjrPercent = sjr['$']
+      //--several fiels in citescore--//
+      citesScore = info['citeScoreYearInfoList']
+      currentMetric = citesScore['citeScoreCurrentMetric']
+      currentMetricYear = citesScore['citeScoreCurrentMetricYear']
+      scoreTracker = citesScore['citeScoreTracker']
+      scoreTrackerYear = citesScore['citeScoreTrackerYear']
+
+      res.render('issnInfo', {
+        title: title ? title : '',
+        publisher: publisher ? publisher : '',
+        covStartYear: covStartYear ? covStartYear : '',
+        covEndYear: covEndYear ? covEndYear : '',
+        sourceId: sourceId ? sourceId : '',
+        sjrYear: sjrYear ? sjrYear : '',
+        sjrPercent: sjrPercent ? sjrPercent : '',
+        currentMetric: currentMetric ? currentMetric : '',
+        currentMetricYear: currentMetricYear ? currentMetricYear : '',
+        scoreTracker: scoreTracker ? scoreTracker : '',
+        scoreTrackerYear: scoreTrackerYear ? scoreTrackerYear : ''
+      })
+    })
     //.then(dados => {res.render('issn',{issn:dados.data.serial-metadata-response})})
     .catch(e => res.jsonp(e))
 })
