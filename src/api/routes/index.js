@@ -37,7 +37,7 @@ router.get('/issn/:code', function(req,res,next){
   console.log("https://api.elsevier.com/content/serial/title/issn/"+ req.params.code+"?apiKey="+apikey)
   axios.get("https://api.elsevier.com/content/serial/title/issn/"+ req.params.code+"?apiKey="+apikey)
     .then(dados => res.jsonp(dados.data))
-    //.then(dados => res.render('issn',{issn:dados.data}))
+    //.then(dados => {res.render('issn',{issn:dados.data.serial-metadata-response})})
     .catch(e => res.jsonp(e))
 })
 

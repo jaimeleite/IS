@@ -47,7 +47,8 @@ block content
                     tr
                         th Doi
                         if pub.doi
-                            td.w3-large= pub.doi
+                            td.w3-large
+                                a(href="https://link.springer.com/chapter/"+pub.doi)= pub.doi
                         else
                             td.w3-large Sem referência registada de um DOI
                     tr
@@ -74,4 +75,5 @@ block content
                             td.w3-large Sem autores registados
                     tr 
                 br
+                
             a.w3-button.w3-white(href="/" + idUser) Voltar atrás
