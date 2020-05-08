@@ -6,22 +6,22 @@ block content
             p 
         .w3-col.m6
             .w3-card.w3-light-grey.w3-padding
-                if user.name
-                    p.w3-large.w3-center= user.name
+                if name
+                    p.w3-large.w3-center= name
                 else
                     p.w3-large.w3-center Sem nome registado
-                p.w3-large.w3-center= user._id
+                p.w3-large.w3-center= id
                 h2.w3-center Biografia
-                if user.biography
-                    p.w3-justify= user.biography
+                if biography
+                    p.w3-justify= biography
                 else
                     p.w3-large Sem biografia registada
                 h2 Publicações
-                if user.publicacoes.length > 0
+                if pubs.length > 0
                     ul.w3-ul
-                        each pub in user.publicacoes
+                        each pub in pubs
                             li
-                                a.w3-hover-light-blue(href="/" + user.id + "?idPub=" + pub._id)= pub.title
+                                a.w3-hover-light-blue(href="/" + id + "?idPub=" + pub._id)= pub.title
                                 br
                 else
                     p.w3-large Sem publicações registadas

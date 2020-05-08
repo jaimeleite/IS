@@ -46,13 +46,33 @@ router.get('/:idUser', async function(req, res, next) {
   
   if (req.query.idPub) {
     Users.getPub(idUser, req.query.idPub)
-      .then(result => res.render('pubInfo', {idUser: idUser, pub: result.publicacoes[0]}))
+    .then(result => {
+      pub = result.publicacoes[0]
+      res.render('pubInfo', {
+                  idUser: idUser,
+                  title: pub.title,
+                  journal: pub.journal,
+                  volume: pub.volume,
+                  issn: pub.issn,
+                  date: pub.date,
+                  doi: pub.doi,
+                  cites: pub.cites,
+                  type: pub.type,
+                  authors: pub.authors,
+                })})
       .catch(e => res.status(500).jsonp(e))
   }
   
   else {
     Users.getUser(idUser)
-      .then(result => res.render('userInfo', {user: result}))
+      .then(result => {
+        res.render('userInfo', {
+                    id: result._id,
+                    name: result._name,
+                    biography: result.biography,
+                    pubs: result.publicacoes
+                  })
+      })
       .catch(e => res.status(500).jsonp(e)) 
   }
 });
