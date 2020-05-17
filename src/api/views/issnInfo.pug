@@ -44,14 +44,14 @@ block content
                             td.w3-large Sem id fonte registado
                     tr
                     tr
-                        th SJR_year
+                        th Ano SJR
                         if sjrYear
                             td.w3-large= sjrYear
                         else
                             td.w3-large Sem valor registado para @_year
                     tr
                     tr
-                        th SJR_$
+                        th Valor SJR
                         if sjrPercent
                             td.w3-large= sjrPercent
                         else
@@ -87,5 +87,6 @@ block content
                 br
                 //tr.w3-center
                 img(height=175 width=200 src="https://www.scimagojr.com/journal_img.php?id=" + sourceId)
-                    
+                
+            br
             a.w3-button.w3-white(href="javascript:history.back()") Voltar atrás
