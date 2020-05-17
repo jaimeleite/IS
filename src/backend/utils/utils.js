@@ -27,7 +27,6 @@ getEids = (data) => {
 }
 
 getAuthors = async (eid) => {
-  //console.log("2")
   const authors = await axios.get('http://api.elsevier.com/content/abstract/scopus_id/' + eid + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e&field=authors')
     .then(response => {
       auts = []
@@ -44,8 +43,6 @@ getAuthors = async (eid) => {
       console.log("Erro ao encontrar os autores da publicação", eid, "=> Erro:", err.response)
       return []
     })
-
-    //console.log("3")
 
     return authors
 }
@@ -78,23 +75,16 @@ formPubs = async (eids) => {
           type: type ? type : ''
         }
 
-        //publicacoes.push(pubInfo)
-
         console.log("Encontrei a publicação", eids[index])
     })
     .catch(err => {
       console.log("Publicação", eids[index], "=> Erro:", err.response.statusText)
     })
 
-    //get authors
-    
+    //get authors 
     if(Object.keys(pubInfo).length > 0){
-      //console.log("1")
-      //publicacoes[index].authors = await getAuthors(eids[index])
       pubInfo.authors = await getAuthors(eids[index])
-      //console.log("4")
       publicacoes.push(pubInfo)
-      //console.log("5")
     }
   }
 
@@ -103,7 +93,7 @@ formPubs = async (eids) => {
 
 //update or insert new user information
 Utils.userInfo = async (idUser) => {
-  Connbd.establishConnection('is')
+  //Connbd.establishConnection('is')
   var user = {}
   
   var exists = ((await Users.getUser(idUser)).length > 0) ? 1 : 0
@@ -157,7 +147,7 @@ Utils.userInfo = async (idUser) => {
     console.log("Utilizador atualizado na base de dados")
   }
   
-  Connbd.closeConnection()
+  //Connbd.closeConnection()
 
   return
 }

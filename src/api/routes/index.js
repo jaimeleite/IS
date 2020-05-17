@@ -100,7 +100,7 @@ router.get('/:idUser', async function(req, res, next) {
       .then(result => {
         res.render('userInfo', {
                     id: result._id,
-                    name: result._name,
+                    name: result.name,
                     biography: result.biography,
                     pubs: result.publicacoes
                   })

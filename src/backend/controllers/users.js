@@ -31,3 +31,7 @@ Users.updatePUBS = (u, pubs) => {
         { $push: { publicacoes: { $each:pubs } } }
      )
 }
+
+Users.getUsers = () => {
+    return User.find({}, {_id:1})
+}
