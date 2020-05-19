@@ -6,7 +6,7 @@ block content
       strong ORCID registado com sucesso!
   if message === 0
     div.w3-container(class="alert alert-danger")
-      strong Erro ao registar o ORCID
+      strong ORCID já se encontra registado
   .w3-display-middle
     h2.w3-center= "Registe um ORCID"
     .w3-container.w3-charcoal(style="box-shadow: 10px 10px 18px #373737;")
@@ -15,8 +15,8 @@ block content
               input.w3-input.w3-section(required type='text' name='orcid' placeholder='Orcid')
               .w3-center
                 b
-                  input.w3-btn.w3-pale-gold.w3-section(type='submit' value='SUBMETER')
+                  input.w3-btn.w3-pale-gold.w3-section(type='submit' value='SUBMETER' style="color:black")
           .w3-center
-              form(method="get" action=`/`)
-                button.w3-btn.w3-pale-gold.w3-section(style="width : 64%" type="submit")
-                  b VOLTAR ATRÁS
+            a.w3-center(href='/' style="color:black")
+              button.w3-btn.w3-pale-gold.w3-section(style="width : 64%" type="submit")
+                b VOLTAR ATRÁS
