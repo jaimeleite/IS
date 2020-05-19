@@ -126,13 +126,14 @@ router.get('/:idUser', async function(req, res, next) {
   }
 });
 
-router.post('/insertOrcid', function(req,res){
+router.post('/insertOrcid', async function(req,res){
   try {
-    Orcids.insert(req.body.orcid)
+    await Orcids.insert(req.body.orcid)
+
     res.render('orcidReg', {message: 1})
   }
   catch (error) {
-      res.render('orcidReg', {message: 0})
+    res.render('orcidReg', {message: 0})
   }
 })
 
