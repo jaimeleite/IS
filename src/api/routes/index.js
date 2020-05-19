@@ -31,6 +31,14 @@ router.get('/back2.jpg', function(req, res, next) {
   })
 });
 
+//number of pubs
+
+router.get('/npubs/:id', (req,res)=>{
+  Users.getNPubs(req.params.id)
+    .then(data=>res.json(data))
+    .catch(err=>res.json(err))
+})
+
 //ISSN
 
 router.get('/issn/:code', function(req,res,next){
@@ -100,7 +108,7 @@ router.get('/:idUser', async function(req, res, next) {
       .then(result => {
         res.render('userInfo', {
                     id: result._id,
-                    name: result._name,
+                    name: result.name,
                     biography: result.biography,
                     pubs: result.publicacoes
                   })

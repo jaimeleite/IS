@@ -18,3 +18,12 @@ Users.getPub = (idUser, idPub) => {
         .findOne({_id: idUser}, {publicacoes: { $elemMatch: {_id: idPub}}})
         .exec()
 }
+//db.users.aggregate({$project:{NumberOfPubs:{$size:"$publicacoes"}}})
+Users.getNPubs = (idUser) => {
+    return User
+        .aggregate([
+            {$project:{NumberOfPubs:{$size:"$publicacoes"}}},
+            { $match : { _id : idUser } }
+        ])
+        .exec()
+}

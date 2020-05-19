@@ -1,15 +1,37 @@
 extends layout
 
 block content
-  h1.w3-center.w3-text-white= "Lista de Utilizadores"
-  p #{title}
-  .w3-row
-    .w3-col.s4.w3-center
+  h1.w3-center= "Lista de Utilizadores"
+  //p #{title}
+  .w3-row-padding
+    .w3-col.w3-container(style='width:10%')
+      p
+    .w3-col(style='width:80%')
+      ul.w3-ul.w3-card  
+      each user in lista
+        
+        .w3-card.w3-row-padding.w3-padding.w3-white
+          img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
+          if user.name
+            h3= user.name
+          else 
+            h3= "Sem nome registado!"
+          a(href="/" + user.id)= "Ver mais informações sobre este autor"
+
+        br
+    .w3-col.w3-container(style='width:10%')
       p 
-    .w3-col.s4.w3-center
+  //-
+    .w3-col.s4
       .w3-card.w3-light-grey
         ul.w3-ul.w3-card-4
         each user in lista
+            li.w3-bar
+            img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
+            .w3-bar-item
+              span.w3-large Mike
+              br
+              span Web Designer
             br
             img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
             if user.name
@@ -19,9 +41,29 @@ block content
             a(href="/" + user.id)= user.id
             br
             br
-    .w3-col.s4.w3-center
-      p 
-    
+        h2 Avatar List
+        p You can combine w3-ul and the w3-bar classes to create an avatar list:
+        ul.w3-ul.w3-card-4
+          li.w3-bar
+            img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar2.png' style='width:85px')
+            .w3-bar-item
+              span.w3-large
+              br
+              span Web Designer
+          li.w3-bar
+            img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar5.png' style='width:85px')
+            .w3-bar-item
+              span.w3-large Jill
+              br
+              span Support
+          li.w3-bar
+            img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar6.png' style='width:85px')
+            .w3-bar-item
+              span.w3-large Jane
+              br
+              span Accountant 
+    .w3-col.s4
+      p
           
       
 
