@@ -1,16 +1,26 @@
 extends layout
 
 block content
-  h1.w3-center= "Bem-vindo"
-  div.w3-container.w3-center
-    p
-      a.w3-center(href='/orcidReg')
-        button.w3-button.w3-charcoal.w3-padding-small
-            i(class="fa fa-search") &nbsp; Registar ORCID
-    p
-      a.w3-center(href='/users')
-        button.w3-button.w3-charcoal.w3-padding-small
-            i(class="fa fa-search") &nbsp; Ver lista de utilizadores
+  h1.w3-center= "Lista de Utilizadores"
+  //p #{title}
+  .w3-row-padding
+    .w3-col.w3-container(style='width:10%')
+      p
+    .w3-col(style='width:80%')
+      ul.w3-ul.w3-card  
+      each user in lista
+        
+        .w3-card.w3-row-padding.w3-padding.w3-white
+          img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
+          if user.name
+            h3= user.name
+          else 
+            h3= "Sem nome registado!"
+          a(href="/" + user.id)= "Ver mais informações sobre este autor"
+
+        br
+    .w3-col.w3-container(style='width:10%')
+      p 
   //-
     .w3-col.s4
       .w3-card.w3-light-grey

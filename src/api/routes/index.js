@@ -3,14 +3,23 @@ var router = express.Router();
 var Users = require('../controllers/users')
 var fs = require('fs');
 var axios = require('axios')
+var Orcids = require('../controllers/orcids')
 
 var apikey="35aa4d6f60c2873044eb2bcfbc50cb5e"
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+  res.render('index')
+});
+
+router.get('/users', async function(req, res, next) {
   Users.getUsers()
-    .then(result => res.render('index', {lista: result}))
+    .then(result => res.render('listUsers', {lista: result}))
     .catch(e => res.status(500).jsonp(e))
+});
+
+router.get('/orcidReg', function(req, res, next) {
+  res.render('orcidReg', {message: -1})
 });
 
 router.get('/img_avatar.png', function(req, res, next) {
@@ -117,6 +126,14 @@ router.get('/:idUser', async function(req, res, next) {
   }
 });
 
-
+router.post('/insertOrcid', function(req,res){
+  try {
+    Orcids.insert(req.body.orcid)
+    res.render('orcidReg', {message: 1})
+  }
+  catch (error) {
+      res.render('orcidReg', {message: 0})
+  }
+})
 
 module.exports = router;
