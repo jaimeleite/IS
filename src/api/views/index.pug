@@ -1,16 +1,44 @@
 extends layout
 
 block content
-  h1.w3-center= "Bem-vindo"
-  div.w3-container.w3-center
+
+  div.w3-bar.w3-white.w3-border
+    a.w3-bar-item.w3-button.w3-xlarge(href='/orcidReg') Registar novo Orcid
+    a.w3-bar-item.w3-button.w3-xlarge(href='/users') Autores
+    
+
+  h1.w3-center.w3-padding-32= "Bem-vindo"
+  div 
+    .w3-col.w3-center.w3-container(style='width:10%')
+      p
+    .w3-col.w3-center.w3-container(style='width:40%').w3-white.w3-round.w3-card
+      h2 Intuito da aplicação
+      p.w3-justify A aplicação pretende apresentar todas as publicações dos autores pretendidos. 
+      p.w3-justify É ainda possível adicionar mais autores introduzindo apenas o seu ID Orcid.
+  div 
+    .w3-col.w3-center.w3-container(style='width:100%')
+      p
+  div 
+    .w3-col.w3-center.w3-container(style='width:10%')
+      p
+    .w3-col.w3-center.w3-container(style='width:40%')
+      p
+    .w3-col.w3-container(style='width:40%').w3-white.w3-text-light-green.w3-round
+      h2.w3-center O que é o Orcid?
+      p.w3-text-black.w3-justify ORCID is part of the wider digital infrastructure needed for researchers to share information on a global scale. We enable transparent and trustworthy connections between researchers, their contributions, and affiliations by providing an identifier for individuals to use with their name as they engage in research, scholarship, and innovation activities.
+      .w3-right-align
+        a(href='https://orcid.org/about/what-is-orcid/mission') by Orcid
+  div 
+    .w3-col.w3-center.w3-container(style='width:100%')
     p
-      a.w3-center(href='/orcidReg' style="color:black")
-        button.w3-button.w3-charcoal.w3-padding-small
-            i(class="fa fa-search") &nbsp; Registar ORCID
-    p
-      a.w3-center(href='/users' style="color:black")
-        button.w3-button.w3-charcoal.w3-padding-small
-            i(class="fa fa-search") &nbsp; Ver lista de utilizadores
+  div 
+    .w3-col.w3-center.w3-container(style='width:10%')
+      p 
+    .w3-col.w3-container(style='width:40%').w3-white.w3-round.w3-text-orange
+      h2.w3-center O que é o Scopus?
+      p.w3-text-black.w3-justify Scopus is the largest abstract and citation database of peer-reviewed literature: scientific journals, books and conference proceedings. Delivering a comprehensive overview of the world's research output in the fields of science, technology, medicine, social sciences, and arts and humanities, Scopus features smart tools to track, analyze and visualize research.
+      .w3-right-align
+        a(href='https://service.elsevier.com/app/answers/detail/a_id/15534/supporthub/scopus/') by Scopus
   //-
     .w3-col.s4
       .w3-card.w3-light-grey
