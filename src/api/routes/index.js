@@ -4,6 +4,7 @@ var Users = require('../controllers/users')
 var fs = require('fs');
 var axios = require('axios')
 var Orcids = require('../controllers/orcids')
+var Utils = require('../public/javascripts/utils')
 
 var apikey="35aa4d6f60c2873044eb2bcfbc50cb5e"
 
@@ -93,37 +94,21 @@ router.get('/issn/:code', function(req,res,next){
 router.get('/:idUser', async function(req, res, next) {
   idUser = req.params.idUser
   
-  if (req.query.idPub) {
-    Users.getPub(idUser, req.query.idPub)
-    .then(result => {
-      pub = result.publicacoes[0]
-      res.render('pubInfo', {
-                  idUser: idUser,
-                  title: pub.title,
-                  journal: pub.journal,
-                  volume: pub.volume,
-                  issn: pub.issn,
-                  date: pub.date,
-                  doi: pub.doi,
-                  cites: pub.cites,
-                  type: pub.type,
-                  authors: pub.authors,
-                })})
-      .catch(e => res.status(500).jsonp(e))
-  }
-  
-  else {
-    Users.getUser(idUser)
-      .then(result => {
-        res.render('userInfo', {
-                    id: result._id,
-                    name: result.name,
-                    biography: result.biography,
-                    pubs: result.publicacoes
-                  })
-      })
-      .catch(e => res.status(500).jsonp(e)) 
-  }
+  Users.getUser(idUser)
+    .then(async result => {
+      pubs = []
+
+      Utils.parsePubs(idUser, result.publicacoes)
+        .then(async publicacoes => {
+          res.render('userInfo', {
+                      id: result._id,
+                      name: result.name,
+                      biography: result.biography,
+                      pubs: publicacoes
+          })
+        })
+    })
+    .catch(e => res.status(500).jsonp(e)) 
 });
 
 router.post('/insertOrcid', async function(req,res){

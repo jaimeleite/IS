@@ -19,16 +19,17 @@ block content
         .w3-container
             h2 Publicações
             if pubs.length > 0
-                table(class="w3-table-all w3-card-4")
+                table(class="w3-table w3-bordered w3-white")
                     tr
-                        th Título
-                        th Ver detalhes
+                        th
+                            h4 
+                                b Título
                     each pub in pubs
                         tr
-                            td=pub.title
                             td
-                                button.w3-btn(onclick="window.location.href = \"/" + id + "?idPub=" + pub._id + "\"")
-                                    i(class="fa fa-arrow-right")
+                                button.w3-btn(class="collapsible")=pub.title
+                                div(class="content")
+                                    include pubInfo
             else
                 p.w3-large Sem publicações registadas
             br
