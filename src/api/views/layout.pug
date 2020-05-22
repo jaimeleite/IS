@@ -5,5 +5,57 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous')
+  style.
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+      position: -webkit-sticky; /* Safari */
+      position: sticky;
+      top: 0;
+    }
+    li {
+      float: left;
+    }
+    li a {
+      display: block;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
   body.bkc
-    block content
+    //<nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Page 1</a></li>
+          <li><a href="#">Page 2</a></li>
+          <li><a href="#">Page 3</a></li>
+        </ul>
+      </div>
+    //</nav>
+    //div.w3-container
+    //.w3-bar.w3-white.w3-border(style="position: fixed")
+      button.w3-btn(style="position: absolute; left: 50px; top: 4px;" onclick="window.location.href = \"/\"")
+        i(class="fa fa-arrow-right")
+      a.w3-bar-item.w3-button.w3-xlarge(href='/orcidReg') Registar novo Orcid
+      a.w3-bar-item.w3-button.w3-xlarge(href='/users') Autores
+    //div(class="header")
+      h2 Scroll
+      p Scroll down to see the sticky effect.
+
+    ul
+      li
+        a(class="active" href="#home") Home
+      li
+        a(href="#news") News
+      li
+        a(href="#contact") Contact
+    </ul>
+    div.w3-container
+      block content
