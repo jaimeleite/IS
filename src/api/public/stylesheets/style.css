@@ -244,3 +244,24 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .just{
     text-justify: inter-word;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    padding: 18px 18px;
+    text-decoration: none;
+}
