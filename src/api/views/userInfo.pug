@@ -3,21 +3,21 @@ extends layout
 block content
     .w3-row.bkc
         .w3-container
-            h1 Detalhes do autor
+            h1 Author Details
             .w3-card-4.w3-white
                 .w3-container
                     if name
                         p.w3-large= name
                     else
-                        p.w3-large Utilizador sem nome registado
+                        p.w3-large This author has no name registered.
                     p.w3-large= id
-                    h2 Biografia
+                    h2 Biography
                     if biography
                         p.w3-justify= biography
                     else
-                        p.w3-large Sem biografia registada
+                        p.w3-large This author has no biography.
         .w3-container
-            h2 Publicações
+            h2 Publications
             if pubs.length > 0
                 table(class="w3-table w3-bordered w3-white")
                     tr
@@ -31,7 +31,7 @@ block content
                                 div(class="content")
                                     include pubInfo
             else
-                p.w3-large Sem publicações registadas
+                p.w3-large There are no registered publications.
             br
-            a.w3-button.w3-white.w3-hover-shadow(href="/users") Voltar atrás
+            a.w3-button.w3-white.w3-hover-shadow(href="/users") Back
             br

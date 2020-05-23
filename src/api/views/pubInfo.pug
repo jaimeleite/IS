@@ -4,21 +4,21 @@ table(class="w3-table w3-bordered w3-hoverable")
         if pub.title
             td.w3-large= pub.title
         else
-            td.w3-large Sem título registado
+            td.w3-large No registered title.
     tr
     tr
-        th Jornal
+        th Journal
         if pub.journal
             td.w3-large= pub.journal
         else
-            td.w3-large Sem referência registada para um "journal"
+            td.w3-large There is no journal reference.
     tr
     tr
         th Volume
         if pub.volume
             td.w3-large= pub.volume
         else
-            td.w3-large Sem volume registado
+            td.w3-large No volume registered.
     tr
     tr
         th ISSN
@@ -26,14 +26,14 @@ table(class="w3-table w3-bordered w3-hoverable")
             if pub.issn
                 a(href="/issn/" + pub.issn.split(' ')[0])= pub.issn.split(' ')[0]
             else
-                .w3-large Sem referência registada de um ISSN
+                .w3-large No ISSN registered.
     tr
     tr
-        th Data
+        th Date
         if pub.date
             td.w3-large= pub.date
         else
-            td.w3-large Sem data registada
+            td.w3-large No registered date.
     tr
     tr
         th Doi
@@ -41,28 +41,28 @@ table(class="w3-table w3-bordered w3-hoverable")
             td.w3-large
                 a(href="https://link.springer.com/chapter/"+pub.doi)= pub.doi
         else
-            td.w3-large Sem referência registada de um DOI
+            td.w3-large There is no DOI registered.
     tr
-        th Número de Citações
+        th Citation Number
         if pub.cites
             td.w3-large= pub.cites
         else
-            td.w3-large Sem número de citações registado
+            td.w3-large No number of citations registered.
     tr
     tr
-        th Tipo
+        th Type
         if pub.type
             td.w3-large= pub.type
         else
-            td.w3-large Sem tipo registado
+            td.w3-large No type registered.
     tr
     tr
-        th Autores
+        th Authors
         if pub.authors.length > 0
             td 
                 each author in pub.authors
                     p= author
         else
-            td.w3-large Sem autores registados
+            td.w3-large No authors registered.
     tr 
 br

@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1.w3-center= "Lista de Utilizadores"
+  h1.w3-center= "Authors"
   //p #{title}
   .w3-row-padding
     .w3-col.w3-container(style='width:10%')
@@ -15,11 +15,11 @@ block content
           if user.name
             h3= user.name
           else 
-            h3= "Sem nome registado!"
-          a(href="/" + user.id)= "Ver mais informações sobre este autor"
+            h3= "Name Not Registered"
+          a(href="/" + user.id)= "More information about this author"
 
         br
-      a.w3-button.w3-white(href="/") Voltar à página inicial
+      a.w3-button.w3-white(href="/") Home Page
     .w3-col.w3-container(style='width:10%')
       p
   //-
