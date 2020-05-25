@@ -7,10 +7,13 @@ block content
             .w3-card-4.w3-white
                 .w3-container
                     if name
-                        p.w3-large= name
+                        b.w3-large= "Name: " 
+                        span.w3-large= name
+                        br
                     else
                         p.w3-large This author has no name registered.
-                    p.w3-large= id
+                    b.w3-large= "Orcid: " 
+                    span.w3-large= id
                     h2 Biography
                     if biography
                         p.w3-justify= biography
@@ -27,7 +30,7 @@ block content
                     each pub in pubs
                         tr
                             td
-                                button.w3-btn(class="collapsible")=pub.title
+                                button.w3-btn.w3-hover-light-gray(class="collapsible")=pub.title
                                 div(class="content")
                                     include pubInfo
             else

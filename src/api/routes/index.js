@@ -88,7 +88,7 @@ router.get('/issn/:code', function(req,res,next){
       })
     })
     //.then(dados => {res.render('issn',{issn:dados.data.serial-metadata-response})})
-    .catch(e => res.jsonp(e))
+    .catch(e => res.render('error',{error:e}))
 })
 
 router.get('/:idUser', async function(req, res, next) {

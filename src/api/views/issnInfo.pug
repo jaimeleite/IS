@@ -1,92 +1,89 @@
 extends layout
 
 block content
-    .w3-row
-        .w3-col.m3
-            p 
-        .w3-col.m6.w3-center
-            .w3-card
-                br
-                table.w3-table-all.w3-hoverable.w3-hover-shadow
-                    tr
-                        th Título
-                        if title
-                            td.w3-large= title
-                        else
-                            td.w3-large Sem título registado
-                    tr
-                    tr
-                        th Editor
-                        if publisher
-                            td.w3-large= publisher
-                        else
-                            td.w3-large Sem referência ao editor
-                    tr
-                    tr
-                        th Ano de início da cobertura
-                        if covStartYear
-                            td.w3-large= covStartYear
-                        else
-                            td.w3-large Sem ano de início da cobertura registado
-                    tr
-                    tr
-                        th Ano de fim da cobertura
-                        if covEndYear
-                            td.w3-large= covEndYear
-                        else
-                            td.w3-large Sem ano de fim da cobertura registado
-                    tr
-                    tr
-                        th Source-Id
-                        if sourceId
-                            td.w3-large= sourceId
-                        else
-                            td.w3-large Sem id fonte registado
-                    tr
-                    tr
-                        th Ano SJR
-                        if sjrYear
-                            td.w3-large= sjrYear
-                        else
-                            td.w3-large Sem valor registado para @_year
-                    tr
-                    tr
-                        th Valor SJR
-                        if sjrPercent
-                            td.w3-large= sjrPercent
-                        else
-                            td.w3-large Sem valor registado para $
-                    tr
-                    tr
-                        th Métrica de contagem das citações
-                        if currentMetric
-                            td.w3-large= currentMetric
-                        else
-                            td.w3-large Sem valor registado para a métrica corrente de contagem de citações
-                    tr
-                    tr
-                        th Ano da métrica de contagem das citações
-                        if currentMetricYear
-                            td.w3-large= currentMetricYear
-                        else
-                            td.w3-large Sem ano registado para a métrica corrente de contagem de citações
-                    tr
-                    tr
-                        th Tracker de contagem de citações
-                        if scoreTracker
-                            td.w3-large= scoreTracker
-                        else
-                            td.w3-large Sem valor registado para o tracker de contagem de citações
-                    tr
-                    tr
-                        th Ano do tracker de contagem de citações
-                        if scoreTrackerYear
-                            td.w3-large= scoreTrackerYear
-                        else
-                            td.w3-large Sem ano registado para o tracker de contagem de citações
-                br
-                //tr.w3-center
-                img(height=175 width=200 src="https://www.scimagojr.com/journal_img.php?id=" + sourceId)
-                
+    if title
+        h2.w3-center= title
+    else 
+        h2 No title registered
+    .w3-col.w3-center.w3-container(style='width:15%')
+        p 
+    .w3-col.w3-center.w3-container(style='width:70%').w3-white.w3-card
+        table.table
+            tr
+                th Publisher 
+                if publisher
+                    td.w3-large= publisher
+                else
+                    td.w3-large No reference to publisher
+            tr
+            // -
+                tr
+                    th Ano de início da cobertura
+                    if covStartYear
+                        td.w3-large= covStartYear
+                    else
+                        td.w3-large Sem ano de início da cobertura registado
+                tr
+                tr
+                    th Ano de fim da cobertura
+                    if covEndYear
+                        td.w3-large= covEndYear
+                    else
+                        td.w3-large Sem ano de fim da cobertura registado
+                tr
+            
+            tr
+                th Source-Id
+                if sourceId
+                    td.w3-large= sourceId
+                else
+                    td.w3-large Sem id fonte registado
+            tr
+            tr
+                th.w3-tooltip SJR Year: 
+                    span.w3-text.w3-tag.w3-animate-opacity Source year for obtained values.
+                if sjrYear
+                    td.w3-large= sjrYear
+                else
+                    td.w3-large Sem valor registado para @_year
+            tr
+            tr
+                th Valor SJR
+                if sjrPercent
+                    td.w3-large= sjrPercent
+                else
+                    td.w3-large Sem valor registado para $
+            tr
+            tr
+                th Métrica de contagem das citações
+                if currentMetric
+                    td.w3-large= currentMetric
+                else
+                    td.w3-large Sem valor registado para a métrica corrente de contagem de citações
+            tr
+            tr
+                th Ano da métrica de contagem das citações
+                if currentMetricYear
+                    td.w3-large= currentMetricYear
+                else
+                    td.w3-large Sem ano registado para a métrica corrente de contagem de citações
+            tr
+            tr
+                th Tracker de contagem de citações
+                if scoreTracker
+                    td.w3-large= scoreTracker
+                else
+                    td.w3-large Sem valor registado para o tracker de contagem de citações
+            tr
+            tr
+                th Ano do tracker de contagem de citações
+                if scoreTrackerYear
+                    td.w3-large= scoreTrackerYear
+                else
+                    td.w3-large Sem ano registado para o tracker de contagem de citações
+        br
+        //tr.w3-center
+        img(height=270 width=260 src="https://www.scimagojr.com/journal_img.php?id=" + sourceId)
+        div 
             br
-            a.w3-button.w3-white(href="javascript:history.back()") Voltar atrás
+            a.w3-left.w3-button.w3-light-grey(href="javascript:history.back()") Voltar atrás

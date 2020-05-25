@@ -299,3 +299,22 @@ li a {
     transition: max-height 0.2s ease-out;
     background-color: #f1f1f1;
 }
+
+.table {
+    white-space: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-size: medium;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-east-asian: normal;
+    font-variant-position: normal;
+    font-style: normal;
+    color: -webkit-text;
+    text-align: start;
+    display: table;
+    border-collapse: separate;
+    -webkit-border-horizontal-spacing: 2px;
+    -webkit-border-vertical-spacing: 2px;
+    border-top-color: gray;
+}
