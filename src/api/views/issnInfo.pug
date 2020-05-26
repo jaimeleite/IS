@@ -10,7 +10,8 @@ block content
     .w3-col.w3-center.w3-container(style='width:70%').w3-white.w3-card
         table.table
             tr
-                th Publisher 
+                th.w3-tooltip Publisher: 
+                    span.w3-text.w3-tag.w3-animate-opacity Journal where publication is posted.
                 if publisher
                     td.w3-large= publisher
                 else
@@ -33,7 +34,8 @@ block content
                 tr
             
             tr
-                th Source-Id
+                th.w3-tooltip Source-Id: 
+                    span.w3-text.w3-tag.w3-animate-opacity Publication's unique identifier in Scopus.
                 if sourceId
                     td.w3-large= sourceId
                 else
@@ -48,35 +50,40 @@ block content
                     td.w3-large Sem valor registado para @_year
             tr
             tr
-                th Valor SJR
+                th.w3-tooltip SJR value: 
+                    span.w3-text.w3-tag.w3-animate-opacity Scholarly journal's measure of the prestige.               
                 if sjrPercent
                     td.w3-large= sjrPercent
                 else
                     td.w3-large Sem valor registado para $
             tr
             tr
-                th Métrica de contagem das citações
+                th.w3-tooltip Cite Score Current Metric: 
+                    span.w3-text.w3-tag.w3-animate-opacity Indicates the calculation for the latest complete year.
                 if currentMetric
                     td.w3-large= currentMetric
                 else
                     td.w3-large Sem valor registado para a métrica corrente de contagem de citações
             tr
             tr
-                th Ano da métrica de contagem das citações
+                th.w3-tooltip Cite Score Current Metric Year: 
+                    span.w3-text.w3-tag.w3-animate-opacity Indicates the year of "Cite Score Current Metric"
                 if currentMetricYear
                     td.w3-large= currentMetricYear
                 else
                     td.w3-large Sem ano registado para a métrica corrente de contagem de citações
             tr
             tr
-                th Tracker de contagem de citações
+                th.w3-tooltip Cite Score Tracker: 
+                    span.w3-text.w3-tag.w3-animate-opacity Indicates the calculation for the in-progress year and is subject to change throughout the year.
                 if scoreTracker
                     td.w3-large= scoreTracker
                 else
                     td.w3-large Sem valor registado para o tracker de contagem de citações
             tr
             tr
-                th Ano do tracker de contagem de citações
+                th.w3-tooltip Cite Score Tracker Year: 
+                    span.w3-text.w3-tag.w3-animate-opacity Indicates the year of "Cite Score Tracker"
                 if scoreTrackerYear
                     td.w3-large= scoreTrackerYear
                 else
