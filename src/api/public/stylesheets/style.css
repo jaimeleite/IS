@@ -318,3 +318,7 @@ li a {
     -webkit-border-vertical-spacing: 2px;
     border-top-color: gray;
 }
+
+.active, .collapsible:hover {
+    background-color: lightgray;
+}
