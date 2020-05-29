@@ -100,12 +100,17 @@ router.get('/:idUser', async function(req, res, next) {
 
       Utils.parsePubs(idUser, result.publicacoes)
         .then(async publicacoes => {
-          res.render('userInfo', {
-                      id: result._id,
-                      name: result.name,
-                      biography: result.biography,
-                      pubs: publicacoes
-          })
+          Users.getNPubs(idUser)
+            .then(nPubs =>{
+              console.log(nPubs)
+              res.render('userInfo', {
+              id: result._id,
+              name: result.name,
+              biography: result.biography,
+              pubs: publicacoes,
+              nPubs: nPubs[0].NumberOfPubs
+              })
+            })
         })
     })
     .catch(e => res.status(500).jsonp(e)) 

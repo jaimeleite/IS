@@ -12,8 +12,12 @@ block content
                         br
                     else
                         p.w3-large This author has no name registered.
+                        br
                     b.w3-large= "Orcid: " 
                     span.w3-large= id
+                    br 
+                    b.w3-large= "Number of Publications: "
+                    span.w3-large= nPubs
                     h2 Biography
                     if biography
                         p.w3-justify= biography
