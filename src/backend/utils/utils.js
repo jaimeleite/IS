@@ -2,6 +2,12 @@ var axios = require('axios');
 var Users = require('../controllers/users')
 var Connbd = require('../connBD/connBD')
 const Utils = module.exports
+//const axiosTiming = require('axios-timing')
+ 
+//axiosTiming(axios, console.log)
+
+var pubsTime = []
+var authorsTime = []
 
 getEids = (data) => {
   //save urls for each work
@@ -27,8 +33,15 @@ getEids = (data) => {
 }
 
 getAuthors = async (eid) => {
+  var before = new Date();
   const authors = await axios.get('http://api.elsevier.com/content/abstract/scopus_id/' + eid + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e&field=authors')
     .then(response => {
+      var after = new Date();
+
+      console.log("Tempo de ir buscar os autores:", after.getTime() - before.getTime(), "milisegundos")
+
+      authorsTime.push(after.getTime() - before.getTime())
+
       auts = []
       aut = response.data['abstracts-retrieval-response']['authors']['author']
       aut.forEach(author => {
@@ -51,8 +64,19 @@ formPubs = async (eids) => {
   publicacoes = []
   for (let index = 0; index < eids.length; index++){
     pubInfo = {}
+    
+    //console.log(Antes:)
+    
+    var before = new Date();
+
     await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
       .then(response => { 
+        var after = new Date();
+
+        console.log("Tempo de ir buscar uma publicação:", after.getTime() - before.getTime(), "milisegundos")
+
+        pubsTime.push(after.getTime() - before.getTime())
+
         pub = response.data
         title = pub['abstracts-retrieval-response']['coredata']['dc:title']
         journal = pub['abstracts-retrieval-response']['coredata']['prism:publicationName']
@@ -146,7 +170,10 @@ Utils.userInfo = async (idUser) => {
     await Users.updatePUBS(user, publicacoes)
     console.log("Utilizador atualizado na base de dados")
   }
-  
+
+  console.log("Tempo médio de buscar uma publicação:", (pubsTime.reduce((a,b) => a + b, 0)) / pubsTime.length)
+  console.log("Tempo médio de buscar os autores de uma publicação:", (authorsTime.reduce((a,b) => a + b, 0)) / authorsTime.length)
+
   //Connbd.closeConnection()
 
   return

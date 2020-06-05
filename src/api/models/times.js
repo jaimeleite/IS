@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-var pubSchema = new mongoose.Schema({
+/*var pubSchema = new mongoose.Schema({
     _id: String,
     authors: [String],
     title: String,
@@ -12,7 +12,7 @@ var pubSchema = new mongoose.Schema({
     doi: String,
     cites: String,
     //type: coredata -> subtypeDescription (ou prism:aggregationType?)
-    type: String
+    type: String,
     //location: ?
 })
 
@@ -21,7 +21,11 @@ var userSchema = new mongoose.Schema({
     name: String,
     biography: String,
     eids: [String],
-    publicacoes: [pubSchema]
+    publicacoes: [pubSchema],
+})*/
+
+var timeSchema = new mongoose.Schema({
+    time: Date
 })
 
-module.exports = mongoose.model('users', userSchema)
+module.exports = mongoose.model('times', timeSchema)

@@ -322,3 +322,14 @@ li a {
 .active, .collapsible:hover {
     background-color: lightgray;
 }
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height: 50px;
+   background-color: white;
+   color: black;
+   text-align: center;
+}

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Users = require('../controllers/users')
+var Times = require('../controllers/times')
 var fs = require('fs');
 var axios = require('axios')
 var Orcids = require('../controllers/orcids')
@@ -10,17 +11,25 @@ var apikey="35aa4d6f60c2873044eb2bcfbc50cb5e"
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  res.render('index')
+  var lastUpdate = await Times.getLastUpdate()
+
+  res.render('index', {lastUpdate: String(lastUpdate[0].time)})
 });
 
 router.get('/users', async function(req, res, next) {
+  var lastUpdate = await Times.getLastUpdate()
+
   Users.getUsers()
-    .then(result => res.render('listUsers', {lista: result}))
+    .then(result => {
+      res.render('listUsers', {lista: result, lastUpdate: String(lastUpdate[0].time)})
+    })
     .catch(e => res.status(500).jsonp(e))
 });
 
-router.get('/orcidReg', function(req, res, next) {
-  res.render('orcidReg', {message: -1})
+router.get('/orcidReg', async function(req, res, next) {
+  var lastUpdate = await Times.getLastUpdate()
+
+  res.render('orcidReg', {message: -1, lastUpdate: String(lastUpdate[0].time)})
 });
 
 router.get('/img_avatar.png', function(req, res, next) {
@@ -51,7 +60,9 @@ router.get('/npubs/:id', (req,res)=>{
 
 //ISSN
 
-router.get('/issn/:code', function(req,res,next){
+router.get('/issn/:code', async function(req,res,next){
+  var lastUpdate = await Times.getLastUpdate()
+
   console.log("https://api.elsevier.com/content/serial/title/issn/"+ req.params.code+"?apiKey="+apikey)
   axios.get("https://api.elsevier.com/content/serial/title/issn/"+ req.params.code+"?apiKey="+apikey)
     .then(dados => {
@@ -84,7 +95,8 @@ router.get('/issn/:code', function(req,res,next){
         currentMetric: currentMetric ? currentMetric : '',
         currentMetricYear: currentMetricYear ? currentMetricYear : '',
         scoreTracker: scoreTracker ? scoreTracker : '',
-        scoreTrackerYear: scoreTrackerYear ? scoreTrackerYear : ''
+        scoreTrackerYear: scoreTrackerYear ? scoreTrackerYear : '',
+        lastUpdate: String(lastUpdate[0].time)
       })
     })
     //.then(dados => {res.render('issn',{issn:dados.data.serial-metadata-response})})
@@ -92,6 +104,7 @@ router.get('/issn/:code', function(req,res,next){
 })
 
 router.get('/:idUser', async function(req, res, next) {
+  var lastUpdate = await Times.getLastUpdate()
   idUser = req.params.idUser
   
   Users.getUser(idUser)
@@ -108,7 +121,8 @@ router.get('/:idUser', async function(req, res, next) {
               name: result.name,
               biography: result.biography,
               pubs: publicacoes,
-              nPubs: nPubs[0].NumberOfPubs
+              nPubs: nPubs[0].NumberOfPubs,
+              lastUpdate: String(lastUpdate[0].time)
               })
             })
         })
@@ -117,13 +131,15 @@ router.get('/:idUser', async function(req, res, next) {
 });
 
 router.post('/insertOrcid', async function(req,res){
+  var lastUpdate = await Times.getLastUpdate()
+
   try {
     await Orcids.insert(req.body.orcid)
 
-    res.render('orcidReg', {message: 1})
+    res.render('orcidReg', {message: 1, lastUpdate: String(lastUpdate[0].time)})
   }
   catch (error) {
-    res.render('orcidReg', {message: 0})
+    res.render('orcidReg', {message: 0, lastUpdate: String(lastUpdate[0].time)})
   }
 })
 

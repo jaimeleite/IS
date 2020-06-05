@@ -1,19 +1,20 @@
 var Utils = require('./utils/utils')
 var Users = require('./controllers/users')
+var Times = require('./controllers/times')
 var Orcids = require('./controllers/orcids')
 var Connbd = require('./connBD/connBD')
 
 getUsersId = async() => { 
     Connbd.establishConnection('is')
 
-    try {
+    /*try {
         Orcids.insert('0000-0001-6457-0756')
         Orcids.insert('0000-0003-4121-6169')
         Orcids.insert('0000-0001-9710-847X')
     }
     catch (error) {
         console.log(error)
-    }
+    }*/
 
     var users = await Orcids.getORCIDS()
     
@@ -23,6 +24,14 @@ getUsersId = async() => {
         await Utils.userInfo(users[i]._id)
     
     }
+    lastUpdate = new Date()
+
+    var time = {
+        time: lastUpdate
+    }
+
+    await Times.dropCollection() //Users.updateTime(lastUpdate)
+    await Times.insertLastUpdate(time)
   
     Connbd.closeConnection()
 }
