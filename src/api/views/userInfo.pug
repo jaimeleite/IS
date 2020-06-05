@@ -33,19 +33,14 @@ block content
                                 b Título
                     each pub in pubs
                         tr
-                            th
-                                h4 
-                                    b Título
-                        each pub in pubs
-                            tr
-                                td
-                                    button.w3-btn.w3-hover-light-gray(class="collapsible")=pub.title
-                                    div(class="content")
-                                        include pubInfo
-                else
-                    p.w3-large There are no registered publications.
-                br
-                a.w3-button.w3-white.w3-hover-shadow(href="/users") Back
-                br
+                            td
+                                button.w3-btn.w3-hover-light-gray(class="collapsible")=pub.title
+                                div(class="content")
+                                    include pubInfo
+            else
+                p.w3-large There are no registered publications.
+            br
+            a.w3-button.w3-white.w3-hover-shadow(href="/users") Back
+            br
     div.footer.w3-border.w3-margin-top
         h5='Last update at: ' + lastUpdate.split(" (")[0]
