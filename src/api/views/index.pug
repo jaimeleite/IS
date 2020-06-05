@@ -2,12 +2,7 @@ extends layout
 
 block content
   div.w3-container
-    //div.w3-bar.w3-white.w3-border
-      a.w3-bar-item.w3-button.w3-xlarge(href='/orcidReg') Registar novo Orcid
-      a.w3-bar-item.w3-button.w3-xlarge(href='/users') Autores
-      
-
-    h1.w3-center.w3-padding-32= "Welcome"
+    h1.w3-center.w3-padding-32-= "Welcome"
     div
       .w3-col.w3-center.w3-container(style='width:10%')
         p
@@ -40,5 +35,5 @@ block content
         p.w3-text-black.w3-justify Scopus is the largest abstract and citation database of peer-reviewed literature: scientific journals, books and conference proceedings. Delivering a comprehensive overview of the world's research output in the fields of science, technology, medicine, social sciences, and arts and humanities, Scopus features smart tools to track, analyze and visualize research.
         .w3-right-align
           a(href='https://service.elsevier.com/app/answers/detail/a_id/15534/supporthub/scopus/') by Scopus
-  div.footer.w3-border
-    h4='Last updated at: ' + lastUpdate.split(" (")[0]
+  div.footer.w3-border.w3-margin-top
+    h5='Last updated at: ' + lastUpdate.split(" (")[0]

@@ -99,7 +99,6 @@ router.get('/issn/:code', async function(req,res,next){
         lastUpdate: String(lastUpdate[0].time)
       })
     })
-    //.then(dados => {res.render('issn',{issn:dados.data.serial-metadata-response})})
     .catch(e => res.render('error',{error:e}))
 })
 

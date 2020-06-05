@@ -64,9 +64,7 @@ formPubs = async (eids) => {
   publicacoes = []
   for (let index = 0; index < eids.length; index++){
     pubInfo = {}
-    
-    //console.log(Antes:)
-    
+        
     var before = new Date();
 
     await axios.get('https://api.elsevier.com/content/abstract/scopus_id/' + eids[index] + '?apiKey=35aa4d6f60c2873044eb2bcfbc50cb5e', { headers: {'Accept': 'application/json'}})
@@ -117,7 +115,6 @@ formPubs = async (eids) => {
 
 //update or insert new user information
 Utils.userInfo = async (idUser) => {
-  //Connbd.establishConnection('is')
   var user = {}
   
   var exists = ((await Users.getUser(idUser)).length > 0) ? 1 : 0
@@ -173,8 +170,6 @@ Utils.userInfo = async (idUser) => {
 
   console.log("Tempo médio de buscar uma publicação:", (pubsTime.reduce((a,b) => a + b, 0)) / pubsTime.length)
   console.log("Tempo médio de buscar os autores de uma publicação:", (authorsTime.reduce((a,b) => a + b, 0)) / authorsTime.length)
-
-  //Connbd.closeConnection()
 
   return
 }

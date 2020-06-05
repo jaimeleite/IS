@@ -17,23 +17,7 @@ block content
                         td.w3-large= publisher
                     else
                         td.w3-large No reference to publisher
-                tr
-                // -
-                    tr
-                        th Ano de início da cobertura
-                        if covStartYear
-                            td.w3-large= covStartYear
-                        else
-                            td.w3-large Sem ano de início da cobertura registado
-                    tr
-                    tr
-                        th Ano de fim da cobertura
-                        if covEndYear
-                            td.w3-large= covEndYear
-                        else
-                            td.w3-large Sem ano de fim da cobertura registado
-                    tr
-                
+                tr                
                 tr
                     th.w3-tooltip Source-Id: 
                         span.w3-text.w3-tag.w3-animate-opacity.w3-light-grey Publication's unique identifier in Scopus.
@@ -94,6 +78,6 @@ block content
             img(height=270 width=260 src="https://www.scimagojr.com/journal_img.php?id=" + sourceId)
             div 
                 br
-                a.w3-left.w3-button.w3-light-grey(href="javascript:history.back()") Voltar atrás
-    div.footer.w3-border
-        h4='Last update at: ' + lastUpdate.split(" (")[0]
+                a.w3-left.w3-button.w3-light-grey(href="javascript:history.back()") Back
+    div.footer.w3-border.w3-margin-top
+        h5='Last update at: ' + lastUpdate.split(" (")[0]

@@ -30,7 +30,7 @@ getUsersId = async() => {
         time: lastUpdate
     }
 
-    await Times.dropCollection() //Users.updateTime(lastUpdate)
+    await Times.dropCollection()
     await Times.insertLastUpdate(time)
   
     Connbd.closeConnection()
