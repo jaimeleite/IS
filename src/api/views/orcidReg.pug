@@ -1,24 +1,23 @@
 extends layout
 
 block content
-  div.w3-container
-    if message === 1
-      div.w3-container(class="alert alert-success")
-        strong ORCID submitted!
-    if message === 0
-      div.w3-container(class="alert alert-danger")
-        strong ORCID has already been submitted.
-    h1.w3-center= "Register ORCID"
-    .w3-display-middle
-      .w3-container.w3-charcoal(style="box-shadow: 10px 10px 18px #373737;")
-        .w3-margin.w3-padding-large
-            form.w3-container(method='POST' action='/insertOrcid')
-                input.w3-input.w3-section(required type='text' name='orcid' placeholder='Orcid')
-                .w3-center
-                  b
-                    input.w3-btn.w3-pale-gold.w3-section(type='submit' value='Submit' style='border: 2px solid black; border-radius: 5px; background-color: black; color: white; text-align: center; box-shadow: none')
-            .w3-center
-              btn.w3-btn.w3-pale-gold.w3-section(onclick="window.location.href = \"/\"" style='border: 2px solid black; border-radius: 5px; background-color: black; color: white; text-align: center; box-shadow: none')
-                b Cancel
-  .footer.w3-border.w3-display-bottom
+  if message === 1
+    div.w3-container(class="alert alert-success")
+      strong ORCID submitted!
+  if message === 0
+    div.w3-container(class="alert alert-danger")
+      strong ORCID has already been submitted.
+  h1.w3-center= "Register ORCID"
+  .w3-display-middle
+    .w3-container.w3-charcoal(style="box-shadow: 10px 10px 18px #373737;")
+      .w3-margin.w3-padding-large
+          form.w3-container(method='POST' action='/insertOrcid')
+              input.w3-input.w3-section(required type='text' name='orcid' placeholder='Orcid')
+              .w3-center
+                b
+                  input.w3-btn.w3-pale-gold.w3-section(type='submit' value='Submit' style='border: 2px solid black; border-radius: 5px; background-color: black; color: white; text-align: center; box-shadow: none')
+          .w3-center
+            btn.w3-btn.w3-pale-gold.w3-section(onclick="window.location.href = \"/\"" style='border: 2px solid black; border-radius: 5px; background-color: black; color: white; text-align: center; box-shadow: none')
+              b Cancel
+  div.footer.w3-border
     h4='Last update at: ' + lastUpdate.split(" (")[0]
