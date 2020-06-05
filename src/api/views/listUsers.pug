@@ -9,11 +9,16 @@ block content
       .w3-col(style='width:80%')
         ul.w3-ul.w3-card  
         each user in lista
-          
-          .w3-card.w3-row-padding.w3-padding.w3-white
+            li.w3-bar
+            img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
+            .w3-bar-item
+              span.w3-large Mike
+              br
+              span Web Designer
+            br
             img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
             if user.name
-              h3= user.name
+              p.w3-large= user.name
             else 
               h3= "Name Not Registered"
             a(href="/" + user.id)= "More information about this author"
