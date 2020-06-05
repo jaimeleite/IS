@@ -1,69 +1,70 @@
 extends layout
 
 block content
-  h1.w3-center= "Authors"
-  //p #{title}
-  .w3-row-padding
-    .w3-col.w3-container(style='width:10%')
-      p
-    .w3-col(style='width:80%')
-      ul.w3-ul.w3-card  
-      each user in lista
-        
-        .w3-card.w3-row-padding.w3-padding.w3-white
-          img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
-          if user.name
-            h3= user.name
-          else 
-            h3= "Name Not Registered"
-          a(href="/" + user.id)= "More information about this author"
-
-        br
-      a.w3-button.w3-white(href="/") Home Page
-    .w3-col.w3-container(style='width:10%')
-      p
-  //-
-    .w3-col.s4
-      .w3-card.w3-light-grey
-        ul.w3-ul.w3-card-4
+  div.w3-container
+    h1.w3-center= "Authors"
+    //p #{title}
+    .w3-row-padding
+      .w3-col.w3-container(style='width:10%')
+        p
+      .w3-col(style='width:80%')
+        ul.w3-ul.w3-card  
         each user in lista
-            li.w3-bar
-            img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
-            .w3-bar-item
-              span.w3-large Mike
-              br
-              span Web Designer
-            br
+          
+          .w3-card.w3-row-padding.w3-padding.w3-white
             img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
             if user.name
-              p.w3-large= user.name
+              h3= user.name
             else 
-              p.w3-large= "Sem nome registado!"
-            a(href="/" + user.id)= user.id
-            br
-            br
-        h2 Avatar List
-        p You can combine w3-ul and the w3-bar classes to create an avatar list:
-        ul.w3-ul.w3-card-4
-          li.w3-bar
-            img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar2.png' style='width:85px')
-            .w3-bar-item
-              span.w3-large
+              h3= "Name Not Registered"
+            a(href="/" + user.id)= "More information about this author"
+
+          br
+        a.w3-button.w3-white(href="/") Home Page
+      .w3-col.w3-container(style='width:10%')
+        p
+    //-
+      .w3-col.s4
+        .w3-card.w3-light-grey
+          ul.w3-ul.w3-card-4
+          each user in lista
+              li.w3-bar
+              img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
+              .w3-bar-item
+                span.w3-large Mike
+                br
+                span Web Designer
               br
-              span Web Designer
-          li.w3-bar
-            img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar5.png' style='width:85px')
-            .w3-bar-item
-              span.w3-large Jill
+              img.w3-circle(src='img_avatar.png' style='width:85px' alt='some image')
+              if user.name
+                p.w3-large= user.name
+              else 
+                p.w3-large= "Sem nome registado!"
+              a(href="/" + user.id)= user.id
               br
-              span Support
-          li.w3-bar
-            img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar6.png' style='width:85px')
-            .w3-bar-item
-              span.w3-large Jane
               br
-              span Accountant 
-    .w3-col.s4
-      p
+          h2 Avatar List
+          p You can combine w3-ul and the w3-bar classes to create an avatar list:
+          ul.w3-ul.w3-card-4
+            li.w3-bar
+              img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar2.png' style='width:85px')
+              .w3-bar-item
+                span.w3-large
+                br
+                span Web Designer
+            li.w3-bar
+              img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar5.png' style='width:85px')
+              .w3-bar-item
+                span.w3-large Jill
+                br
+                span Support
+            li.w3-bar
+              img.w3-bar-item.w3-circle.w3-hide-small(src='img_avatar6.png' style='width:85px')
+              .w3-bar-item
+                span.w3-large Jane
+                br
+                span Accountant 
+      .w3-col.s4
+        p
   div.footer.w3-border
     h4='Last update at: ' + lastUpdate.split(" (")[0]

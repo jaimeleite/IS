@@ -1,46 +1,47 @@
 extends layout
 
 block content
-    .w3-row.bkc
-        .w3-container
-            h1 Author Details
-            .w3-card-4.w3-white
-                .w3-container
-                    if name
-                        b.w3-large= "Name: " 
-                        span.w3-large= name
-                        br
-                    else
-                        p.w3-large This author has no name registered.
-                        br
-                    b.w3-large= "Orcid: " 
-                    span.w3-large= id
-                    br 
-                    b.w3-large= "Number of Publications: "
-                    span.w3-large= nPubs
-                    h2 Biography
-                    if biography
-                        p.w3-justify= biography
-                    else
-                        p.w3-large This author has no biography.
-        .w3-container
-            h2 Publications
-            if pubs.length > 0
-                table(class="w3-table w3-bordered w3-white")
-                    tr
-                        th
-                            h4 
-                                b Título
-                    each pub in pubs
+    div.w3-container
+        .w3-row.bkc
+            .w3-container
+                h1 Author Details
+                .w3-card-4.w3-white
+                    .w3-container
+                        if name
+                            b.w3-large= "Name: " 
+                            span.w3-large= name
+                            br
+                        else
+                            p.w3-large This author has no name registered.
+                            br
+                        b.w3-large= "Orcid: " 
+                        span.w3-large= id
+                        br 
+                        b.w3-large= "Number of Publications: "
+                        span.w3-large= nPubs
+                        h2 Biography
+                        if biography
+                            p.w3-justify= biography
+                        else
+                            p.w3-large This author has no biography.
+            .w3-container
+                h2 Publications
+                if pubs.length > 0
+                    table(class="w3-table w3-bordered w3-white")
                         tr
-                            td
-                                button.w3-btn.w3-hover-light-gray(class="collapsible")=pub.title
-                                div(class="content")
-                                    include pubInfo
-            else
-                p.w3-large There are no registered publications.
-            br
-            a.w3-button.w3-white.w3-hover-shadow(href="/users") Back
-            br
+                            th
+                                h4 
+                                    b Título
+                        each pub in pubs
+                            tr
+                                td
+                                    button.w3-btn.w3-hover-light-gray(class="collapsible")=pub.title
+                                    div(class="content")
+                                        include pubInfo
+                else
+                    p.w3-large There are no registered publications.
+                br
+                a.w3-button.w3-white.w3-hover-shadow(href="/users") Back
+                br
     div.footer.w3-border
         h4='Last update at: ' + lastUpdate.split(" (")[0]
